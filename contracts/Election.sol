@@ -13,6 +13,11 @@ contract Election {
   mapping(uint => Candidate) public candidates;
   /* Storing the number of candidates */
   uint public candidatesCount;
+  /* Defining Events */
+  event votedEvent(
+    uint indexed _candidateId
+    );
+
   /* Constructor */
   function Election() public {
     addCandidate("Candidate 1");
@@ -33,5 +38,8 @@ contract Election {
     voters[msg.sender] = true;
     /* update candidate vote count */
     candidates[_candidateId].voteCount ++;
+
+    /* trigger event */
+    votedEvent(_candidateId);
   }
 }
